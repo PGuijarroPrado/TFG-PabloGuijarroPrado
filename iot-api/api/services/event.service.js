@@ -18,6 +18,25 @@ class EventService {
 
     constructor(engineService) {
         this.engineService = engineService;
+        this.load();
+    }
+
+    rule = {
+        create: (event) => {
+            const max = event.type === 'capacity' ? SensorPeople.capacity : SensorCO2.volume;
+
+            return {
+                condition: function (R) {
+                    console.log('this: ', this);
+                    R.when(this[event.type] >= max);
+                },
+                consequence: (R) => {
+                    console.log('Executing consecuence...');
+                    this.callbacks[event.type].forEach(cb => cb(event));
+                    R.stop();
+                }
+            }
+        }
     }
 
     add = async (event) => {
@@ -35,21 +54,20 @@ class EventService {
             const { _id } = eventSaved;
 
             result = await Event.findById(_id).select(SELECTION.events.short);
-            const max = event.type === 'capacity' ? SensorPeople.capacity : SensorCO2.volume;
             // Create a rule
-            const rule = {
-                condition: function (R) {
-                    console.log('this: ', this);
-                    R.when(this[event.type] >= max);
-                },
-                consequence: (R) => {
-                    console.log('Executing consecuence...');
-                    this.callbacks[event.type].forEach(cb => cb(eventSaved));
-                    R.stop();
-                }
-            }
+            // const rule = {
+            //     condition: function (R) {
+            //         console.log('this: ', this);
+            //         R.when(this[event.type] >= max);
+            //     },
+            //     consequence: (R) => {
+            //         console.log('Executing consecuence...');
+            //         this.callbacks[event.type].forEach(cb => cb(eventSaved));
+            //         R.stop();
+            //     }
+            // }
             // Register on engineService
-            const ruleCreated = this.engineService.rules.add(rule);
+            const ruleCreated = this.engineService.rules.add(this.rule.create(eventSaved));
             this.rules[_id] = ruleCreated.timestamp;
         } catch (e) {
             console.log('Error adding an event: ', e);
@@ -106,19 +124,19 @@ class EventService {
 
         const eventUpdated = await Event.findOneAndUpdate({ _id }, { $set: event }, { new: true }).select(SELECTION.events.short);
 
-        const max = event.type === 'capacity' ? SensorPeople.capacity : SensorCO2.volume;
+        // const max = event.type === 'capacity' ? SensorPeople.capacity : SensorCO2.volume;
         // Create a rule
-        const rule = {
-            condition: function (R) {
-                R.when(this[event.type] >= max);
-            },
-            consequence: function (R) {
-                this.callbacks[event.type].forEach(cb => cb());
-                R.stop();
-            }
-        }
+        // const rule = {
+        //     condition: function (R) {
+        //         R.when(this[event.type] >= max);
+        //     },
+        //     consequence: function (R) {
+        //         this.callbacks[event.type].forEach(cb => cb());
+        //         R.stop();
+        //     }
+        // }
         // Update on engine
-        const updatedRule = this.engineService.rules.update(rules[_id], rule);
+        const updatedRule = this.engineService.rules.update(this.rules[_id], this.rule.create(eventUpdated));
         // Update id
         this.rules[_id] = updatedRule.id;
         // Return event
@@ -139,8 +157,25 @@ class EventService {
         if (!event) {
             throw new Error();
         }
+        // Remove rule from engine
+        this.engineService.rules.remove(this.rules[event._id]);
+        // Remove from array of rules
+        delete this.rules[event._id];
 
         return event;
+    }
+
+    load = async() => {
+        const events = await Event.find({createdBy : user._id, enabled : true}).select(SELECTION.events.short).exec();
+
+        events.forEach((event) => {
+            // Generate a rule
+            const rule = this.rule.create(event);
+            // Save id
+            this.rules[event._id] = rule.timestamp;
+            // Add to engine
+            this.engineService.rules.add(rule);
+        });
     }
 }
 

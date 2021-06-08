@@ -99,8 +99,8 @@ app.use((req, res, next) => {
 // var initProcessors = new initRuleProcessors();
 
 // Initialize sensors
-const sensorC02 = new SensorCO2(5000);
-const sensorPeople = new SensorPeople(5000);
+const sensorC02 = new SensorCO2(10000);
+const sensorPeople = new SensorPeople(10000);
 // Initialize services
 const engineService = new EngineService();
 const eventService = new EventService(engineService);

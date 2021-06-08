@@ -10,7 +10,7 @@ const Screen = require('../models/screen');
 class ScreenService {
 
     constructor(eventService, sensors) {
-        sensors.forEach(({ type }) =>  eventService.on(type, async (event) =>  this.update(sensor, event) ) );
+        sensors.forEach((sensor) =>  eventService.on(sensor.type, async (event) =>  this.update(sensor, event) ) );
     }
 
     update = async (sensor, event) => {
@@ -19,8 +19,9 @@ class ScreenService {
                          The limit is ${limit}.`;
 
         const displays = await Promise.all(event.displays.map(async (_id) => await Display.findOne({ _id }).exec()));
+        console.log('Displays: ', displays);
         // Update images for displays
-        displays.forEach(({ images, _id }) => {
+        displays.forEach(async ({ images, _id }) => {
             // Get the screenCode
             const { screenCode } = await Device.findOne({ _id }).exec();
             // Get associated screen for device
@@ -36,11 +37,13 @@ class ScreenService {
             const processPath = `${process.env.API_URL}${path}`;
             // Write on the path
             await bpm.writeAsync(`./${path}`);
+            console.log('Image wrote at: ', path);
             // Get the associated image
             const image = await Image.findOne({ name, displays: [ _id ] }).exec();
 
             if (image) {
                 await Image.findByIdAndUpdate({ _id: image._id }, { src: processPath, path: `./${path}` }).exec();
+                console.log('Image saved at DB: ', processPath);
                 await Display.findByIdAndUpdate({ _id }, { activeImage: image._id }).exec();
                 
                 return;
