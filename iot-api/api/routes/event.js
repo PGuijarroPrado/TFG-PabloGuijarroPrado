@@ -2,27 +2,6 @@ const express = require('express');
 const checkAuth = require('../middleware/check-auth');
 const { MESSAGE } = require('../controllers/static');
 
-
-// const router = express.Router();
-
-// /* CONTROLLER */
-// const eventController = require('../controllers/event.js');
-// const checkAuth = require('../middleware/check-auth.js');
-
-// /* API GET */
-// router.get('/', checkAuth, eventController.eventGetAll);
-// router.get('/:id', checkAuth, eventController.eventGetOne);
-
-// /* API POST*/
-// router.post('/', checkAuth, eventController.eventCreate);
-// /* API PUT */
-// router.put('/:id', checkAuth, eventController.eventUpdate);
-
-// /* API DELETE */
-// router.delete('/:id', checkAuth, eventController.eventDelete);
-
-// module.exports = router;
-
 class EventRoutes {
     routes = express.Router();
 

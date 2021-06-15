@@ -5,7 +5,8 @@ const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const expressSession = require('express-session');
 const cookieParser = require('cookie-parser');
-
+const { existsSync, readdirSync } = require('fs');
+const { execSync } =  require('child_process');
 const app = express();
 
 // view engine setup
@@ -42,6 +43,18 @@ app.use((err, req, res) => {
   res.render('error');
 });
 
+readdirSync('../').forEach(file => {
+  console.log('File: ', file);
+});
+readdirSync('../iot-frontend').forEach(file => {
+  console.log('File: ', file);
+});
+if (!existsSync('./public/dist/bundle.js')) {
+  console.log('Bundle not exists...');
+  execSync('npm run build');
+  console.log('Bundle generated...');
+  
+}
 console.log('iot-api url: ', process.env.API_URL)
 
 module.exports = app;

@@ -29,9 +29,6 @@ const devicesRoutes = require('./api/routes/devices');
 const updateRoutes = require('./api/routes/update');
 const userGroupsRoutes = require('./api/routes/userGroup');
 const EventRoutes = require('./api/routes/event');
-//const sensorRoutes = require('./api/routes/sensor');
-//const initRuleProcessors = require('./api/nodeRules/initRuleProcessors');
-const { SELECTION, MESSAGE } = require('./api/controllers/static');
 
 // Services
 const EngineService = require('./api/services/engine.service');
@@ -120,7 +117,7 @@ app.use('/devices', devicesRoutes);
 app.use('/userGroups', userGroupsRoutes);
 app.use('/update', updateRoutes);
 app.use('/events', new EventRoutes(eventService).routes);
-// app.use('/sensors', sensorRoutes);
+
 console.log('Routes running...');
 
 // Error handling

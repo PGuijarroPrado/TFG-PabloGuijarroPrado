@@ -9,8 +9,6 @@ ENV PORT=$PORT
 EXPOSE $PORT
 # Update npm to its latest version
 RUN npm i npm@latest -g
-# Move to the home directory
-WORKDIR /home/app
 # Move to the directory and install dependencies from the project
 WORKDIR /home/app/iot-frontend
 COPY . .

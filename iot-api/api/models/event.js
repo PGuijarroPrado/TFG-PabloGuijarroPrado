@@ -1,6 +1,4 @@
 const mongoose = require('mongoose');
-const UserGroup = require('./userGroup.js');
-// const nodeRuleProcessor = require('../nodeRules/processor');
 
 const eventSchema = mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
@@ -26,21 +24,9 @@ eventSchema.pre('save', function (next) {
 
 eventSchema.post('findOneAndUpdate', function(){
   var eventUpdated = this._update.$set;
-      // processor = new nodeRuleProcessor("\nProcesing event updated with id  " + this._conditions._id),
-      // RuleEngine = processor.initRuleEngineEventTime();
-      
   eventUpdated._id = this._conditions._id;
-  // console.log(processor.name)
-  // processor.processNodeRules(eventUpdated, RuleEngine);
 });
 
-eventSchema.post('save', function(){
-  var eventSaved = this;
-      // processor = new nodeRuleProcessor("\nProcesing event saved with id " + eventSaved._id),
-      // RuleEngine = processor.initRuleEngineEventTime();
-  // console.log(processor.name);
-  // processor.processNodeRules(eventSaved, RuleEngine);
-});
 
 
 module.exports = mongoose.model('Event', eventSchema);

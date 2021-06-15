@@ -166,7 +166,7 @@ class EventService {
     }
 
     load = async() => {
-        const events = await Event.find({createdBy : user._id, enabled : true}).select(SELECTION.events.short).exec();
+        const events = await Event.find({ enabled : true }).select(SELECTION.events.short).exec();
 
         events.forEach((event) => {
             // Generate a rule
