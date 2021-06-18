@@ -230,7 +230,7 @@ class ManageEvents extends Component {
 		if (type === 'capacity') {
 			labelTypeOptions = (<label><FontAwesomeIcon icon="user-friends" className="mr-2" fixedWidth />Aforo</label>)
 		} else {
-			labelTypeOptions = (<label><FontAwesomeIcon icon="fan" className="mr-2" fixedWidth />Observable</label>)
+			labelTypeOptions = (<label><FontAwesomeIcon icon="fan" className="mr-2" fixedWidth />Calidad del aire</label>)
 		}
 
 		if (this.props.data.userGroups.length > 0) {
@@ -380,20 +380,15 @@ class ManageEvents extends Component {
 								}
 							</form>
 						</div>
-						{/* <div className="col-6">
+						{<div className="col-6">
 							<h3 className="d-flex w-100 justify-content-between">Eventos<span>{events.length}</span></h3>
 							<hr className="card-division" />
 							<div className="list settings-list">
 								<div className="list-group mb-3">
 									{list}
 								</div>
-								<div>
-									<button className="btn btn-small btn-info" onClick={() => this.handlerAforo()}>
-										Update Aforo
-						</button>
-								</div>
 							</div>
-						</div> */}
+						</div>}
 					</div>
 				</div>
 			</div>

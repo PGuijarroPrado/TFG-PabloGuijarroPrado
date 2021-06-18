@@ -19,9 +19,9 @@ class EngineService {
 
             return rule;
         },
-        update: (id, rule) =>{
+        update: (timestamp, rule) =>{
             // Delete it
-            this.rules.remove(id);
+            this.rules.remove(timestamp);
             // Add updated rule
             return this.rules.add(rule);
         },

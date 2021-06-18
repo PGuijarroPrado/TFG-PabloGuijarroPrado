@@ -60,13 +60,7 @@ class EventRoutes {
                 }
 
                 response.code = 200;
-                response.body = {
-                    success: true,
-                    message: 'Success at uploading an event to the server',
-                    notify: `Evento '${newEvent.name}' creada`,
-                    resourceId: newEvent._id,
-                    resource: newEvent,
-                };
+                response.body = event;
 
             } catch(e) {
                 response.code = e.code || 500;
@@ -87,7 +81,13 @@ class EventRoutes {
                 const eventCreated = await eventService.add(event);
 
                 response.code = 201;
-                response.body = eventCreated;
+                response.body = {
+                    success: true,
+                    message: 'Success at uploading an event to the server',
+                    notify: `Evento '${eventCreated.name}' creada`,
+                    resourceId: eventCreated._id,
+                    resource: eventCreated,
+                };
             } catch(e) {
                 response.code = e.code || 500;
                 response.body = e.body || e.stackTrace;
@@ -110,6 +110,7 @@ class EventRoutes {
                     response.code = 201;
                     response.body = eventCreated;
                 } catch(e) {
+                    console.log(e);
                     response.code = 404;
                     response.body = MESSAGE[404];
 
@@ -141,6 +142,7 @@ class EventRoutes {
                         resourceId: id,
                     };
                 } catch(e) {
+                    console.log(e);
                     response.code = 404;
                     response.body = MESSAGE[404];
 

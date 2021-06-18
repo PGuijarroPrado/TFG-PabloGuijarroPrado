@@ -54,19 +54,6 @@ class EventService {
             const { _id } = eventSaved;
 
             result = await Event.findById(_id).select(SELECTION.events.short);
-            // Create a rule
-            // const rule = {
-            //     condition: function (R) {
-            //         console.log('this: ', this);
-            //         R.when(this[event.type] >= max);
-            //     },
-            //     consequence: (R) => {
-            //         console.log('Executing consecuence...');
-            //         this.callbacks[event.type].forEach(cb => cb(eventSaved));
-            //         R.stop();
-            //     }
-            // }
-            // Register on engineService
             const ruleCreated = this.engineService.rules.add(this.rule.create(eventSaved));
             this.rules[_id] = ruleCreated.timestamp;
         } catch (e) {
@@ -123,19 +110,6 @@ class EventService {
         delete event.id;
 
         const eventUpdated = await Event.findOneAndUpdate({ _id }, { $set: event }, { new: true }).select(SELECTION.events.short);
-
-        // const max = event.type === 'capacity' ? SensorPeople.capacity : SensorCO2.volume;
-        // Create a rule
-        // const rule = {
-        //     condition: function (R) {
-        //         R.when(this[event.type] >= max);
-        //     },
-        //     consequence: function (R) {
-        //         this.callbacks[event.type].forEach(cb => cb());
-        //         R.stop();
-        //     }
-        // }
-        // Update on engine
         const updatedRule = this.engineService.rules.update(this.rules[_id], this.rule.create(eventUpdated));
         // Update id
         this.rules[_id] = updatedRule.id;
@@ -144,7 +118,7 @@ class EventService {
     }
 
     delete = async (_id, userGroup) => {
-        console.log('Deleting event: ', event);
+        console.log('Deleting event with id: ', _id);
         // Delete
         const query = { _id };
 

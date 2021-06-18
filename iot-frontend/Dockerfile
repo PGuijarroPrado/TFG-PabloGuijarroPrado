@@ -12,6 +12,8 @@ RUN npm i npm@latest -g
 # Move to the directory and install dependencies from the project
 WORKDIR /home/app/iot-frontend
 COPY . .
+RUN ls -l
+RUN chmod 777 -R public
 RUN npm install
 RUN npm run build
 # Run the app

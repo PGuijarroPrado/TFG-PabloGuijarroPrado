@@ -4,8 +4,6 @@ const eventSchema = mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
     name: { type: String, required: true},
     description: { type: String, default: 'Sin descripción' },
-    // type: {type: String, default:'time' , enum: ['time', 'action'] ,required : true},
-    // configData:{type: Array, required: true},
     type: { type: String, required: true },
     enabled: { type: Boolean },
     displays: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Display' }],
@@ -30,3 +28,6 @@ eventSchema.post('findOneAndUpdate', function(){
 
 
 module.exports = mongoose.model('Event', eventSchema);
+
+   // type: {type: String, default:'time' , enum: ['time', 'action'] ,required : true},
+    // configData:{type: Array, required: true},
