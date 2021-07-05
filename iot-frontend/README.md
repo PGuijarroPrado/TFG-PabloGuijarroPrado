@@ -58,3 +58,11 @@ Las acciones que se pueden realizar desde una cuenta de usuario son:
 * Añadir una imagen: El usuario puede subir una imagen al servidor para utilizarla en los dispositivos que haya configurado.
 
 * Añadir un grupo: El usuario puede crear un grupo de dispositivos y asignar imágenes a dicho grupo.
+
+### Imagen front
+
+Para levantar la imagen realizaremos los siguientes pasos:
+APi-Restful para la gestión del front-end y base de datos. Para construir la imagen de esta:
+
+1. Situarse en la carpeta ---> cd iot-frontend
+2. Construir la imagen en docker ---> docker build -t "iot-frontend:latest" .
