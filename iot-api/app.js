@@ -29,6 +29,7 @@ const devicesRoutes = require('./api/routes/devices');
 const updateRoutes = require('./api/routes/update');
 const userGroupsRoutes = require('./api/routes/userGroup');
 const EventRoutes = require('./api/routes/event');
+const FactRoutes = require('./api/routes/fact');
 
 // Services
 const EngineService = require('./api/services/engine.service');
@@ -117,6 +118,7 @@ app.use('/devices', devicesRoutes);
 app.use('/userGroups', userGroupsRoutes);
 app.use('/update', updateRoutes);
 app.use('/events', new EventRoutes(eventService).routes);
+app.use('/facts', new FactRoutes([sensorC02, sensorPeople]).routes);
 
 console.log('Routes running...');
 

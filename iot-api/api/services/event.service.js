@@ -45,7 +45,7 @@ class EventService {
         try {
 
             if (!event.displays) {
-                events.displays = [];
+                event.displays = [];
             }
             // Save on DB
             const eventModel = new Event(event);

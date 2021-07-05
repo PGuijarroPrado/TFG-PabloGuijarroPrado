@@ -48,8 +48,11 @@ class Navigation extends Component {
 	      id: 2, exact: false, linkTo: 'devices', text: 'Dispositivos', icon: 'tablet-alt', count: true, number: devices ? String(devices.length) : '...',
 	    },
 	    {
-	      id: 3, exact: false, linkTo: 'gateways', text: 'Puertas de enlace', icon: 'sitemap', count: true, number: gateways ? String(gateways.length) : '...',
+	      id: 3, exact: false, linkTo: 'gateways', text: 'Puertas de enlace', icon: 'sitemap', count: false,
 	    },
+		// {
+		//   id: 4, exact: false, linkTo: 'facts', text: 'Eventos de sensor', icon: 'calendar-alt', count: true, number: gateways ? String(gateways.length) : '...',
+		// },
 	  ];
 
 	  const nav = user && user.admin

@@ -12,7 +12,7 @@ class SensorCO2 extends Sensor {
 
   read(interval){
     return this.interval = setInterval(() => {
-      this.emit(Math.floor(Math.random() * (500 - 0 + 1)) + 0);
+      this.emit(Math.floor(Math.random() * (500 + 1)));
     }, interval);
   }
 

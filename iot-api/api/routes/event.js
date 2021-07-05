@@ -135,7 +135,7 @@ class EventRoutes {
                 try {
                     const group = req.AuthData.admin ? undefined : req.AuthData.userGroup;
                     const event = await eventService.delete(id, group);
-                    response.code = 201;
+                    response.code = 200;
                     response.body = {
                         message: 'Success at removing an event from the collection',
                         success: true,

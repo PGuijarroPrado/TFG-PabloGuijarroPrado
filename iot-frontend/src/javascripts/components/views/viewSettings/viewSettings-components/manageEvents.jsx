@@ -93,57 +93,8 @@ class ManageEvents extends Component {
 
 	handleInputTypeChange = (event) => {
 		const { target: { value: type } } = event;
-		// let type = this.state.type,
-		// 	configData = {
-		// 		timeData: {
-		// 			periodicity: '',
-		// 			nextExecDate: ''
-		// 		},
-		// 		actionData: {
-		// 			trigger: ''
-		// 		}
-		// 	};
-		// if (type === 'time') {
-		// 	configData.timeData.periodicity = value;
-		// 	configData.timeData.nextExecDate = this.state.configData.timeData.nextExecDate;
-		// } else {
-		// 	configData.actionData.trigger = value;
-		// }
 		this.setState({ type });
 	}
-
-	// handleDateChange = (date) => {
-	// 	this.setState(prevState => {
-	// 		let configData = Object.assign({}, prevState.configData),
-	// 			newDate = new Date();
-	// 		newDate.setHours(date.getHours(), date.getMinutes());
-
-	// 		if (this.state.configData.timeData.periodicity === 'daily') {
-	// 			configData.timeData = {
-	// 				nextExecDate: newDate
-	// 			}
-	// 		} else {
-	// 			date.setHours(date.getHours(), date.getMinutes());
-	// 			configData.timeData = {
-	// 				nextExecDate: date,
-	// 			}
-	// 		}
-	// 		configData.timeData.periodicity = this.state.configData.timeData.periodicity;
-	// 		return { configData };
-	// 	});
-	// }
-
-	// handlerAforo = () => {
-	// 	const { token } = this.props;
-	// 	var aforoRandom = { data: Math.floor(Math.random() * 11) };
-	// 	alert("PeopleCapacity change to " + aforoRandom.data);
-	// 	axios({
-	// 		method: 'post',
-	// 		url: `${process.env.API_URL}sensors`,
-	// 		data: aforoRandom,
-	// 		headers: { Accept: 'application/json', 'Content-Type': 'application/json', Authorization: `Bearer ${token}` }
-	// 	});
-	// }
 
 	/* HANDLE SUBMIT */
 	handleSubmit = (method) => {
@@ -336,38 +287,7 @@ class ManageEvents extends Component {
 										</select>
 									}
 								</div>
-								{/* <div className="form-group">
-									{
-										this.state.type === 'time' ? (
-											<label htmlFor="eventDisplay"><FontAwesomeIcon icon={['far', 'calendar-alt']} className="mr-2" fixedWidth />Fecha del Evento</label>
-										) : null
-									}
-									{
-										this.state.type === 'time' ? (
-											configDataJson.timeData.periodicity === 'daily' ? (
-												<DatePicker
-													selected={new Date(configDataJson.timeData.nextExecDate)}
-													onChange={(date) => this.handleDateChange(date)}
-													showTimeSelect
-													showTimeSelectOnly
-													timeCaption="Time"
-													timeIntervals={30}
-													dateFormat="HH:mm"
-													timeFormat="HH:mm"
-												/>
-											) :
-												<DatePicker
-													selected={new Date(configDataJson.timeData.nextExecDate)}
-													minDate={new Date()}
-													onChange={(date) => this.handleDateChange(date)}
-													showTimeSelect
-													timeIntervals={30}
-													dateFormat="dd/MM/yyyy HH:mm"
-													timeFormat="HH:mm"
-												/>
-										) : null
-									}
-								</div> */}
+								{}
 								{!edit
 									? <button onClick={() => this.handleSubmit('post')} type="button" className="btn btn-block btn-small btn-success"><i className="fa fa-plus-circle mr-1" aria-hidden="true" />Añadir</button>
 									: (

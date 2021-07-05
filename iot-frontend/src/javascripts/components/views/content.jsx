@@ -8,6 +8,7 @@ import ContentImages from './viewImages/contentImages';
 import ContentGroups from './viewGroups/contentGroups';
 import ContentSettings from './viewSettings/contentSettings';
 import ContentGateways from './viewGateways/contentGateways';
+// import ContentFacts from './viewFacts/contentFacts';
 import ContentDevices from './viewDevices/contentDevices';
 import ContentState from './viewState/contentState';
 import Overview from './overview';
@@ -26,6 +27,7 @@ const Content = ({ isLoaded, ...rest }) => {
         <ProtectedRoute {...rest} path="/settings" component={ContentSettings} />
         <ProtectedRoute {...rest} path="/devices" component={ContentDevices} />
         <ProtectedRoute {...rest} path="/gateways" component={ContentGateways} />
+        {/* <ProtectedRoute {...rest} path="/facts" component={ContentFacts} /> */}
       </div>);
   }
   return (
