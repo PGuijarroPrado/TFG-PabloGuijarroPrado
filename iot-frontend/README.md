@@ -1,4 +1,4 @@
-# Desarrollo de un front-end para la administración de elementos IoT en plataformas de despliegue de información
+# Desarrollo implementación de la entidad evento para la administración de elementos IoT en plataformas de despliegue de información de forma automática
 
 ## Descripción
 
@@ -6,16 +6,11 @@ En los últimos años el paradigma tecnológico de la Internet de las Cosas ha m
 
 Dentro de este amplio mundo, los sistemas de bajos recursos y consumo limitado (y, por tanto, de gran vida útil) son uno de los temas con mayor demanda actual. Muchas plataformas e infraestructuras basadas en comunicaciones de baja energía o sistemas de consumo cero en reposo han aparecido en los últimos años, aunque su gestión aún no ha sido solucionada del todo. En concreto, los paneles de gestión basados en tecnologías web han sido los más investigados, y los que mejor posicionamiento tienen para dar el inminente salto comercial.
 
-Por ello, el objetivo de este trabajo es desarrollar un front-end en NODE.JS y MongoDB (aunque otras tecnologías secundarias podrían utilizarse según las necesidades vayan surgiendo) para la gestión de elementos en una plataforma de Internet de las Cosas (IoT) en un entorno de dispositivos para el despliegue de información basados en tecnologías de bajo consumo (como la tinta electrónica o el Bluetooth Low-Energy). Además se implementará un sistema de comunicación API REST para la gestión de los elementos de la citada plataforma, para lo cual se empleará la tecnología más apropiada a los dispositivos disponibles.
-
 ## Uso
-
-Este repositorio hace uso de la API contenida en el repositorio [iot-api](https://github.com/pedro-rodalia/iot-api)
 
 Cuentas de acceso recomendadas:
 
 * **Administrador:** Usuario: admin - Contraseña: 1234
-* **Usuario:** Usuario: gisai - Contraseña: 1234 
 
 ## Manual
 
@@ -58,3 +53,16 @@ Las acciones que se pueden realizar desde una cuenta de usuario son:
 * Añadir una imagen: El usuario puede subir una imagen al servidor para utilizarla en los dispositivos que haya configurado.
 
 * Añadir un grupo: El usuario puede crear un grupo de dispositivos y asignar imágenes a dicho grupo.
+
+### Evento
+
+Para el caso de evento se permite la creación de este por parte de los dos tipos de usuario. En el caso de gestionar, eliminar o modificar, los administradores podrán hacerlo independientemente de si han creado o no es evento. Para los usuarios, solo podrán verse los que ellos mismos hayan creado.
+
+
+### Imagen front
+
+Para levantar la imagen realizaremos los siguientes pasos:
+APi-Restful para la gestión del front-end y base de datos. Para construir la imagen de esta:
+
+1. Situarse en la carpeta ---> cd iot-frontend
+2. Construir la imagen en docker ---> docker build -t "iot-frontend:latest" .
