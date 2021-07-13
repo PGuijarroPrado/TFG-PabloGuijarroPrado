@@ -52,9 +52,9 @@ class EventService {
             const eventSaved = await eventModel.save();
             console.log('EventSaved: ', eventSaved);
             const { _id } = eventSaved;
-
             result = await Event.findById(_id).select(SELECTION.events.short);
             const ruleCreated = this.engineService.rules.add(this.rule.create(eventSaved));
+            console.log('Rule created: ', ruleCreated);
             this.rules[_id] = ruleCreated.timestamp;
         } catch (e) {
             console.log('Error adding an event: ', e);
@@ -110,9 +110,10 @@ class EventService {
         delete event.id;
 
         const eventUpdated = await Event.findOneAndUpdate({ _id }, { $set: event }, { new: true }).select(SELECTION.events.short);
+        console.log('Rule to update: ', this.rules[_id]);
         const updatedRule = this.engineService.rules.update(this.rules[_id], this.rule.create(eventUpdated));
         // Update id
-        this.rules[_id] = updatedRule.id;
+        this.rules[_id] = updatedRule.timestamp;
         // Return event
         return eventUpdated;
     }
@@ -131,10 +132,11 @@ class EventService {
         if (!event) {
             throw new Error();
         }
+        console.log('Deleting rule: ', this.rules[_id]);
         // Remove rule from engine
-        this.engineService.rules.remove(this.rules[event._id]);
+        this.engineService.rules.remove(this.rules[_id]);
         // Remove from array of rules
-        delete this.rules[event._id];
+        delete this.rules[_id];
 
         return event;
     }
@@ -143,12 +145,15 @@ class EventService {
         const events = await Event.find({ enabled : true }).select(SELECTION.events.short).exec();
 
         events.forEach((event) => {
+            console.log('Event loaded: ', event);
             // Generate a rule
             const rule = this.rule.create(event);
-            // Save id
-            this.rules[event._id] = rule.timestamp;
+            console.log('Rule loaded: ', rule);
             // Add to engine
-            this.engineService.rules.add(rule);
+            const ruleCreated = this.engineService.rules.add(rule);
+            console.log('Rule created: ', ruleCreated);
+            // Save id
+            this.rules[event._id] = ruleCreated.timestamp;
         });
     }
 }

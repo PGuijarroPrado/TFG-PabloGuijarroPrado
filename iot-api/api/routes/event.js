@@ -106,9 +106,15 @@ class EventRoutes {
                 const { id } = req.params;
                 const { body: event } = req;
                 try {
-                    const eventCreated = await eventService.update({ ...event, id });
+                    const eventUpdated = await eventService.update({ ...event, id });
                     response.code = 201;
-                    response.body = eventCreated;
+                    response.body = {
+                        success: true,
+                        message: 'Evento modificado con exito',
+                        notify: `Evento '${eventUpdated.name}' actualizado`,
+                        resourceId: eventUpdated._id,
+                        resource: eventUpdated,
+                    };
                 } catch(e) {
                     console.log(e);
                     response.code = 404;

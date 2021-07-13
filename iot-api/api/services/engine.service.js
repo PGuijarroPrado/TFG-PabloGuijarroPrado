@@ -26,11 +26,11 @@ class EngineService {
             return this.rules.add(rule);
         },
         remove: (timestamp) => {
-            const rules = this._rules.filter((rule) => rule.timestamp !== timestamp);
+            this._rules = this._rules.filter((rule) => rule.timestamp !== timestamp);
             // Reset engine
-            this.R.init();
+            this.R = new RuleEngine();
             // Re register
-            rules.forEach((rule) => this.R.register(rule));
+            this._rules.forEach((rule) => this.R.register(rule));
         }
     }
 

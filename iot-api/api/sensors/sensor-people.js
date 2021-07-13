@@ -9,8 +9,6 @@ class SensorPeople extends Sensor {
   constructor(interval) {
     super("capacity", SensorPeople.capacity);
     this.interval = this.read(interval);
-    console.log('this: ', this);
-    console.log('this.emit: ', this.emit);
   }
 
   read(interval) {
